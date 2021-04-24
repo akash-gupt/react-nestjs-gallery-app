@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css';
+import 'antd-mobile/dist/antd-mobile.css';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import 'sanitize.css/sanitize.css';
