@@ -1,12 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
-import { data } from '../ReportRequestListPage/data.json';
-
-type DataType = typeof data[0];
-
 const CardDetailPage = () => {
-  const [order, setOrder] = useState<DataType>();
+  const [order, setOrder] = useState<any>();
   const params = useParams<any>();
   const orderId = params?.id;
 

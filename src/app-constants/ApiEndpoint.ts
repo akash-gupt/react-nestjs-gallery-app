@@ -1,3 +1,3 @@
 export const ApiEndpoint = {
-  GET_REPORT_REQUESTS: '/report-requests',
+  GET_PRODUCT_RETURNS: '/product-returns',
 };

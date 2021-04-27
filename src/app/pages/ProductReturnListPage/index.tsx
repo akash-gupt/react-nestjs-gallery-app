@@ -3,18 +3,17 @@ import './index.scss';
 import { Button, Flex, List, SearchBar } from 'antd-mobile';
 import ListItem from 'antd-mobile/lib/list/ListItem';
 import AppHeader from 'app/components/AppHeader';
-import ReportRequestService from 'data/services/ReportRequestService';
-import { ReportRequestType, ServerPaginationType } from 'data/types';
+import ProductReturnService from 'data/services/ProductReturnService';
+import { ProductReturnType, ServerPaginationType } from 'data/types';
 import { useArrayState } from 'hooks/useArrayState';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router';
 
-import ReportRequestItem from './components/ReportRequestItem';
-import { data } from './data.json';
+import ProductReturnItem from './components/ProductReturnItem';
 
-export function ReportRequestListPage() {
-  const [items, setItems, resetItems] = useArrayState<ReportRequestType>(
+export function ProductReturnListPage() {
+  const [items, setItems, resetItems] = useArrayState<ProductReturnType>(
     'id',
     [],
   );
@@ -30,7 +29,7 @@ export function ReportRequestListPage() {
   const loadData = async (page = 1) => {
     try {
       setLoading(true);
-      const { data, pagination } = await ReportRequestService.getReportRequests(
+      const { data, pagination } = await ProductReturnService.getProductReturns(
         {
           page,
           q: searchText,
@@ -46,17 +45,14 @@ export function ReportRequestListPage() {
       setPagination(pagination);
     } catch (error) {
       ///
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
-  const navigateToDetail = (orderNumber: string) => {
-    history.push(`/card/${orderNumber}`);
-  };
-
-  const renderCard = (cardData: ReportRequestType, i: number) => {
-    return <ReportRequestItem key={i} item={cardData} />;
+  const renderCard = (cardData: ProductReturnType, i: number) => {
+    return <ProductReturnItem key={i} item={cardData} />;
   };
 
   return (
@@ -66,7 +62,11 @@ export function ReportRequestListPage() {
         <meta name="description" content="Target Plus App" />
       </Helmet>
 
-      <AppHeader onRefreshClick={loadData} />
+      <AppHeader
+        onRefreshClick={() => {
+          loadData();
+        }}
+      />
 
       <SearchBar
         placeholder="Search by Item Name"

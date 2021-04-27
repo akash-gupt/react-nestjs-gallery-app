@@ -13,7 +13,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import CardDetailPage from './pages/CardDetailPage';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
-import { ReportRequestListPage } from './pages/ReportRequestListPage/Loadable';
+import { ProductReturnListPage } from './pages/ProductReturnListPage/Loadable';
 
 export function App() {
   return (
@@ -30,7 +30,7 @@ export function App() {
           <Route
             exact
             path={process.env.PUBLIC_URL + '/'}
-            component={ReportRequestListPage}
+            component={ProductReturnListPage}
           />
           <Route exact path={'/card/:id'} component={CardDetailPage} />
           <Route component={NotFoundPage} />
