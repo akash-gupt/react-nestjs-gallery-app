@@ -1,6 +1,6 @@
 import './index.scss';
 
-import { Button, Flex, List, SearchBar } from 'antd-mobile';
+import { Button, Flex, List } from 'antd-mobile';
 import ListItem from 'antd-mobile/lib/list/ListItem';
 import AppHeader from 'app/components/AppHeader';
 import ProductReturnService from 'data/services/ProductReturnService';
@@ -8,9 +8,9 @@ import { ProductReturnType, ServerPaginationType } from 'data/types';
 import { useArrayState } from 'hooks/useArrayState';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useHistory } from 'react-router';
 
 import ProductReturnItem from './components/ProductReturnItem';
+import TrackingNumberList from './components/TrackingNumberList';
 
 export function ProductReturnListPage() {
   const [items, setItems, resetItems] = useArrayState<ProductReturnType>(
@@ -18,25 +18,25 @@ export function ProductReturnListPage() {
     [],
   );
   const [pagination, setPagination] = useState<ServerPaginationType>();
-  const history = useHistory();
-  const [searchText, setSearchText] = useState<string>();
+  // const [searchText, setSearchText] = useState<string>();
   const [loading, setLoading] = useState(false);
+  const [trackingNumber, setTrackingNumber] = useState<string>();
 
   useEffect(() => {
-    loadData();
-  }, [searchText]);
+    trackingNumber && loadData();
+  }, [trackingNumber]);
 
-  const loadData = async (page = 1) => {
+  const loadData = async (page = 0) => {
     try {
       setLoading(true);
       const { data, pagination } = await ProductReturnService.getProductReturns(
         {
           page,
-          q: searchText,
+          tracking_number: trackingNumber,
         },
       );
 
-      if (page === 1) {
+      if (page === 0) {
         resetItems(data);
       } else {
         setItems(data);
@@ -68,10 +68,9 @@ export function ProductReturnListPage() {
         }}
       />
 
-      <SearchBar
-        placeholder="Search by Item Name"
-        onChange={setSearchText}
-        cancelText="Cancel"
+      <TrackingNumberList
+        onSelect={setTrackingNumber}
+        selectedValue={trackingNumber}
       />
 
       <List className="my-list">

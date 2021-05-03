@@ -16,6 +16,10 @@ export type ProductReturnType = {
   tracking_data: TrackingDataType[];
 };
 
+export type TrackingNumberType = {
+  tracking_number: string;
+};
+
 export type TrackingDataType = {
   bill_of_lading: string;
   crc_received_date: string;
