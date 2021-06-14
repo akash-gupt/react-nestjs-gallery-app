@@ -10,19 +10,13 @@ import './index.scss';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
-import CardDetailPage from './pages/CardDetailPage';
-import { NotFoundPage } from './pages/NotFoundPage/Loadable';
-import { ProductReturnListPage } from './pages/ProductReturnListPage/Loadable';
+import { GalleryPage } from './pages/GalleryPage';
 
 export function App() {
   return (
     <BrowserRouter>
-      <Helmet
-        titleTemplate="%s - Target Tracking App"
-        defaultTitle="Target Tracking App"
-      >
-        <meta name="description" content="Target Tracking App" />
+      <Helmet titleTemplate="%s - Gallery App" defaultTitle="Gallery App">
+        <meta name="description" content="Gallery App" />
       </Helmet>
 
       <section className="site-layout">
@@ -30,10 +24,10 @@ export function App() {
           <Route
             exact
             path={process.env.PUBLIC_URL + '/'}
-            component={ProductReturnListPage}
+            component={GalleryPage}
           />
-          <Route exact path={'/card/:id'} component={CardDetailPage} />
-          <Route component={NotFoundPage} />
+
+          <Route component={GalleryPage} />
         </Switch>
       </section>
     </BrowserRouter>

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AxiosRequestConfig } from 'axios';
 
 import AxiosClient from './AxiosClient';
