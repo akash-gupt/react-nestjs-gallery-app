@@ -16,7 +16,6 @@
     "prettify": "prettier --write src"
   },
   "dependencies": {
-    "@types/react-measure": "2.0.6",
     "axios": "0.21.1",
     "fontfaceobserver": "2.1.0",
     "lodash": "4.17.21",
@@ -34,6 +33,7 @@
     "web-vitals": "1.0.1"
   },
   "devDependencies": {
+    "@types/react-measure": "2.0.6",
     "@commitlint/cli": "9.1.2",
     "@commitlint/config-conventional": "9.1.2",
     "@testing-library/jest-dom": "5.11.4",
