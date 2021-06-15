@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Helmet } from 'react-helmet-async';
-
+import Measure, { ContentRect } from 'react-measure';
 import { useState, useCallback, useEffect } from 'react';
 import Gallery from 'react-photo-gallery';
 import Carousel, { Modal, ModalGateway } from 'react-images';
@@ -60,6 +60,7 @@ export function GalleryPage() {
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
   const { images, loadImages } = useImageDataHook();
+  const [columns, setColumns] = useState(8);
 
   useEffect(() => {
     loadImages();
@@ -75,6 +76,21 @@ export function GalleryPage() {
     setViewerIsOpen(false);
   };
 
+  const onResize = (contentRect: ContentRect) => {
+    setColumns(8);
+    const containerWidth = contentRect.bounds?.width;
+    console.log(contentRect);
+    if (containerWidth) {
+      if (containerWidth <= 500) {
+        setColumns(4);
+      } else if (containerWidth <= 900) {
+        setColumns(6);
+      } else if (containerWidth <= 1500) {
+        setColumns(10);
+      }
+    }
+  };
+
   return (
     <div>
       <Helmet>
@@ -83,7 +99,19 @@ export function GalleryPage() {
       </Helmet>
 
       <Header />
-      <Gallery photos={images} onClick={openLightbox} />
+      <Measure bounds onResize={onResize}>
+        {({ measureRef }) => (
+          <div ref={measureRef}>
+            <Gallery
+              photos={images}
+              onClick={openLightbox}
+              direction={'column'}
+              columns={columns}
+            />
+          </div>
+        )}
+      </Measure>
+
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>

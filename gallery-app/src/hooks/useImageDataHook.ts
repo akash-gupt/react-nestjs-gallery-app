@@ -18,8 +18,8 @@ export const useImageDataHook = () => {
       setImages(prev => {
         return response.map(p => {
           return {
-            height: random(3, 4),
-            width: random(3, 4),
+            height: random(1, 2),
+            width: random(1, 2),
             src: IMAGE_BASE_URL + p,
           };
         });
